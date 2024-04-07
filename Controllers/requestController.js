@@ -22,14 +22,13 @@ const postItem=expressAsyncHandler(async(req,res)=>{
     })
 })
 const deleteItem=expressAsyncHandler(async(req,res)=>{
-    let { item } = req.body;
+    let item= req.params.id;
     if (!item) {
         res.statusCode = 404;
         throw new Error("No data Found")
     }
-    let contact1=await contact.find({todo:item});
+    let contact1=await contact.findByIdAndDelete(item)
     console.log(contact1);
-    await contact.remove();
     res.statusCode=200
     res.send(contact1)
 
